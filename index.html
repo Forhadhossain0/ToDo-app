@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body >
+        <section class="flex shadow-[rgba(0,_0,_0,_0.5)_0px_30px_90px]  md:mt-5 rounded-xl md:mx-auto m-2  bg-gradient-to-r from-cyan-500 to-blue-400 justify-center justify-items-center  overflow-hidden h-[90vh] md:w-[30%] ">
+            <div class="main-todo  h-full w-full  md:p-5 p-2">
+                <div class="header text-white text-center ">
+                    <h1 class="md:text-2xl text-lg font-bold"> Note Your Task </h1>
+                    <p class="md:text-lg text-[10px]">And complete to gain a more productivity</p>
+                    <p class="md:text-lg text-[10px]">Make your life more easier</p>
+                </div>
+
+                <div class="todo-body text-center  p-2 md:py-10 ">
+                     <div class="input-section py-2 relative">
+                        <input id="todoinput" type="text" class="todoinput  w-full md:p-3 outline-none rounded-full">
+                        <button  onclick="addbtn()"  class="btn font-bold text-white hover:bg-red-400 bg-lime-400 md:py-3 md:px-10 px-5 right-0 rounded-full  absolute">Add</button>
+                     </div>
+
+                    <ul id="itemlist" class="  text-left md:space-y-5 md:py-8 py-2 md:px-2">
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </section>
+
+
+        <script>
+            const inputbox = document.getElementById('todoinput')
+            const ul = document.getElementById('itemlist')
+            function addbtn(){
+                if(inputbox.value === ''){
+                    alert('!!you must have to write somthing')
+                }
+                else{
+                    const li = document.createElement('li');
+                    li.innerHTML = inputbox.value;
+                    ul.appendChild(li);
+                    const span = document.createElement('span')
+                    span.innerHTML = '\u00d7'
+                    li.appendChild(span)
+                    lsSet();
+                }
+                inputbox.value = '';
+            }
+
+
+            ul.addEventListener('click', function(e){
+                if(e.target.tagName === 'LI'){
+                    e.target.classList.toggle('checked')
+                    lsSet();
+                }
+                else if (e.target.tagName === 'SPAN'){
+                    e.target.parentElement.remove();
+                    lsSet();
+                }
+                
+            },false)
+
+
+            function lsSet(){
+                localStorage.setItem('items', ul.innerHTML);
+            }
+
+            function lsGet(){
+                ul.innerHTML = localStorage.getItem('items');
+            }
+            lsGet();
+
+        </script>
+</body>
+</html>
